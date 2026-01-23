@@ -13,13 +13,10 @@ function App() {
     [url, { headers }],
     ([url, { headers }]) => fetchWithHeaders(url, { headers })
   );
-  return (
-    <p className="App-header">
-      {error && "Failed to load."}
-      {isLoading && "Loading..."}
-      {data && `Status : ${data}`}
-    </p>
-  );
+  if (error) return <p className="App-header">Failed to load.</p>;
+  if (isLoading) return <p className="App-header">Loading...</p>;
+
+  return <p className="App-header">{data && `Status : ${data}`}</p>;
 }
 
 export default App;
