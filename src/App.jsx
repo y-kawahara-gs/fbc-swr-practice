@@ -3,16 +3,13 @@ import "./App.css";
 
 const url = "http://localhost:3001/200?sleep=2000";
 const headers = { Accept: "application/json" };
-const fetchWithHeaders = (url, { headers }) =>
+const fetcher = (url) =>
   fetch(url, { headers })
     .then((res) => res.json())
     .then((json) => json.description);
 
 function App() {
-  const { data, error, isLoading } = useSWR(
-    [url, { headers }],
-    ([url, { headers }]) => fetchWithHeaders(url, { headers })
-  );
+  const { data, error, isLoading } = useSWR(url, fetcher);
   if (error) return <p className="App-header">Failed to load.</p>;
   if (isLoading) return <p className="App-header">Loading...</p>;
 
